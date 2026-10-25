@@ -89,6 +89,7 @@ Open the local address printed by Vite, usually `http://localhost:5173/`. Click 
 | Variable            | Default      | Purpose                                      |
 | ------------------- | ------------ | -------------------------------------------- |
 | `VITE_API_BASE_URL` | Empty string | Backend origin used by `src/services/api.js` |
+| `VITE_SITE_URL` | Current browser origin | Canonical site origin used for route metadata and structured data |
 
 - Leave the value empty only when `/api/analyze` and `/mail` are served or proxied on the frontend's origin.
 - For a separate backend, use its origin without an `/api` suffix: the service appends `/api/analyze` and `/mail` itself.
@@ -96,6 +97,8 @@ Open the local address printed by Vite, usually `http://localhost:5173/`. Click 
 - A backend on a different origin must allow the frontend origin through CORS, including JSON POST requests.
 - Restart the development server after changing environment configuration. Production environment values must be supplied before building; rebuild to change the API origin in an existing bundle.
 - `VITE_*` values are client-visible configuration. Never put credentials, private API keys, or other secrets in them. `.env` is ignored by Git.
+
+For production SEO, set `VITE_SITE_URL` to the public HTTPS origin, for example `https://repodoctor.example.com`. If it is empty, the app falls back to the current browser origin at runtime.
 
 ## 6. Available commands
 
@@ -124,7 +127,8 @@ repodoctor-frontend/
 ├── package-lock.json            # Locked dependency versions
 ├── vite.config.js               # Vue, Tailwind, and alias configuration
 ├── public/
-│   └── favicon.ico              # Static favicon
+│   ├── favicon.ico              # Static favicon
+│   └── robots.txt               # Crawler directives
 └── src/
     ├── App.vue                  # Root shell rendering RouterView
     ├── main.js                  # Vue, Pinia, router, and stylesheet bootstrap
@@ -148,6 +152,8 @@ repodoctor-frontend/
     │   └── index.js              # Application routes and fallback redirect
     ├── services/
     │   └── api.js                # Backend analyze and feedback requests
+    ├── utils/
+    │   └── seo.js                # Route-aware document metadata and JSON-LD
     ├── stores/
     │   └── counter.js            # Starter Pinia example; not used by the analyzer
     └── views/
@@ -261,7 +267,16 @@ The backend contract documents `GET /health`, but the current frontend does not 
 - `index.html` applies the stored theme before Vue mounts to reduce the initial theme flash.
 - Theme styles are defined in `src/assets/app.css` under `.theme-light` overrides.
 
-## 12. Verification and deployment
+## 12. SEO
+
+- `index.html` provides baseline title, description, author, robots, Open Graph, and Twitter metadata.
+- `src/utils/seo.js` updates title, description, robots, canonical URL, Open Graph, Twitter, and JSON-LD metadata after route changes.
+- The welcome route is indexable; the interactive analyzer route uses `noindex, follow`; unmatched routes use `noindex, nofollow`.
+- `public/robots.txt` allows the welcome page and disallows the analyzer utility route.
+- Set `VITE_SITE_URL` to a stable public origin for correct canonical URLs and structured-data URLs.
+- Because this is a client-rendered SPA, full social-preview and search rendering can depend on crawler JavaScript support. SSR or prerendering is recommended if search visibility becomes a primary requirement.
+
+## 13. Verification and deployment
 
 ### Local verification
 
