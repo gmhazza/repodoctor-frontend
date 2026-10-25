@@ -152,6 +152,7 @@ repodoctor-frontend/
     │   └── counter.js            # Starter Pinia example; not used by the analyzer
     └── views/
         ├── AnalyzerView.vue     # Repository analysis page state and composition
+        ├── NotFoundView.vue     # Themed 404 page for unmatched routes
         └── WelcomeView.vue      # First page shown to users
 ```
 
@@ -163,9 +164,9 @@ Routes are defined in `src/router/index.js` using `createWebHistory`.
 | ------------------ | ---------- | ------------------ | ------------------------------------------------ |
 | `/`                | `welcome`  | `WelcomeView.vue`  | Entry page and product introduction              |
 | `/analyze`         | `analyze`  | `AnalyzerView.vue` | Repository URL submission and findings dashboard |
-| Any unmatched path | —          | Redirect           | Redirects to `/`                                 |
+| Any unmatched path | `not-found` | `NotFoundView.vue` | Shows the themed 404 page with links to `/` and `/analyze` |
 
-The welcome page navigates to `/analyze` with Vue Router. The analyzer sidebar and mobile header link back to `/` using `RouterLink`.
+The welcome page navigates to `/analyze` with Vue Router. The analyzer sidebar and mobile header link back to `/` using `RouterLink`. Any unmatched path renders the 404 page instead of silently redirecting.
 
 ## 9. Component responsibilities and data flow
 
