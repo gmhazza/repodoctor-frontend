@@ -92,7 +92,6 @@ defineEmits(['feedback'])
             Send feedback
           </button>
         </div>
-        <p class="mt-5 px-2 text-[11px] text-zinc-600">v0.1 · Private by default</p>
       </div>
     </div>
   </aside>

@@ -21,7 +21,6 @@ function startAnalyzing() {
         </div>
       </RouterLink>
       <div class="flex items-center gap-3">
-        <span class="welcome-private-badge hidden sm:inline-flex">Private by default</span>
         <ThemeToggle />
       </div>
     </header>

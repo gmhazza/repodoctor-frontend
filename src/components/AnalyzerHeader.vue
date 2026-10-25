@@ -11,10 +11,6 @@ defineEmits(['feedback'])
       <BrandMark small />
       <span class="text-sm font-semibold text-white">Repo Doctor</span>
     </RouterLink>
-    <div class="hidden items-center gap-2 text-xs text-zinc-500 lg:flex">
-      <span>Workspace</span><span class="text-zinc-700">/</span
-      ><span class="text-zinc-300">Overview</span>
-    </div>
     <div class="ml-auto flex items-center gap-3">
       <ThemeToggle />
       <button
@@ -33,7 +29,6 @@ defineEmits(['feedback'])
           />
         </svg>
       </button>
-      <div class="avatar">JD</div>
     </div>
   </header>
 </template>
