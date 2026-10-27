@@ -4,7 +4,7 @@ export async function analyzeRepository(repository) {
   const response = await fetch(`${apiBaseUrl}/api/analyze`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ repository, auth_code: import.meta.env.AUTH_CODE }),
+    body: JSON.stringify({ repository, auth_code: import.meta.env.VITE_AUTH_CODE }),
   })
 
   if (!response.ok) {
@@ -23,7 +23,10 @@ export async function sendFeedback(payload) {
   const response = await fetch(`${apiBaseUrl}/mail`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: { auth_code: import.meta.env.AUTH_CODE, ...JSON.stringify(payload) },
+    body: JSON.stringify({
+      ...payload,
+      auth_code: import.meta.env.VITE_AUTH_CODE,
+    }),
   })
 
   if (!response.ok) throw new Error('The message could not be sent.')
