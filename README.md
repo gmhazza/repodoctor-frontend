@@ -127,15 +127,15 @@ repodoctor-frontend/
 ├── package-lock.json            # Locked dependency versions
 ├── vite.config.js               # Vue, Tailwind, and alias configuration
 ├── public/
-│   ├── favicon.ico              # Static favicon
+│   ├── favicon.ico              # Legacy favicon asset
+│   ├── favicon.svg              # Active SVG favicon
 │   └── robots.txt               # Crawler directives
 └── src/
     ├── App.vue                  # Root shell rendering RouterView
     ├── main.js                  # Vue, Pinia, router, and stylesheet bootstrap
     ├── assets/
     │   ├── app.css              # Shared layout, component, and theme styles
-    │   ├── main.css             # Tailwind and app.css imports
-    │   └── logo.svg              # Original project asset
+    │   └── main.css             # Tailwind and app.css imports
     ├── components/
     │   ├── AnalyzerHeader.vue   # Analyzer top bar and actions
     │   ├── AnalyzerSidebar.vue  # Analyzer navigation and feedback entry point
